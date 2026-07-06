@@ -1,0 +1,14 @@
+{
+  "name": "puttshack-design-system",
+  "private": true,
+  "version": "0.0.1",
+  "scripts": {
+    "tokens:build": "pnpm --filter @puttshack/tokens build",
+    "tokens:watch": "pnpm --filter @puttshack/tokens watch",
+    "storybook": "pnpm --filter @puttshack/components storybook",
+    "build": "pnpm --filter @puttshack/tokens build && pnpm --filter @puttshack/components build"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0"
+  }
+}
