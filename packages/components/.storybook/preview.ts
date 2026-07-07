@@ -4,10 +4,10 @@ import '../src/styles/globals.css';
 const preview: Preview = {
   parameters: {
     backgrounds: {
-      default: 'dark',
+      default: 'light',
       values: [
-        { name: 'dark',  value: '#0E0115' },
         { name: 'light', value: '#FFFFFF' },
+        { name: 'dark',  value: '#0E0115' },
       ],
     },
     controls: {
@@ -20,7 +20,7 @@ const preview: Preview = {
   globalTypes: {
     theme: {
       description: 'Color theme',
-      defaultValue: 'dark',
+      defaultValue: 'light',
       toolbar: {
         title: 'Theme',
         icon: 'paintbrush',
@@ -33,7 +33,7 @@ const preview: Preview = {
     (Story, context) => {
       document.documentElement.setAttribute(
         'data-theme',
-        context.globals.theme ?? 'dark'
+        context.globals.theme ?? 'light'
       );
       return Story();
     },

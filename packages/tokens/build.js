@@ -1,18 +1,30 @@
 /**
  * PuttShack Design System — Token Build
  * Runs Style Dictionary against Figma DTCG exports to produce:
- *   build/css/tokens.css        → :root CSS custom properties (light + desktop)
- *   build/css/tokens.dark.css   → [data-theme="dark"] overrides
- *   build/css/tokens.mobile.css → @media (max-width: 440px) spacing overrides
- *   build/js/tokens.js          → ES module with all semantic token values
- *   build/js/tokens.d.ts        → TypeScript declaration
- *   build/tailwind/preset.js    → Tailwind CSS preset
+ *   build/css/tokens.css              → :root CSS custom properties (light + desktop)
+ *   build/css/tokens.dark.css         → [data-theme="dark"] overrides
+ *   build/css/tokens.spacing.css      → :root spacing (desktop default)
+ *   build/css/tokens.kiosk.css        → @media (441–1024px) spacing overrides
+ *   build/css/tokens.mobile.css       → @media (max-width: 440px) spacing overrides
+ *   build/css/tokens.typography.css   → .text-* classes (desktop default)
+ *   build/css/tokens.typography.kiosk.css  → @media (441–1024px) typography overrides
+ *   build/css/tokens.typography.mobile.css → @media (max-width: 440px) typography overrides
+ *   build/js/tokens.js                → ES module with all semantic token values
+ *   build/js/tokens.d.ts               → TypeScript declaration
+ *   build/js/typography.js/.d.ts      → textStyles class-name map
+ *   build/tailwind/preset.js          → Tailwind CSS preset
+ *
+ * Typography is hand-authored from Figma's local Text Styles (see
+ * typography-data.js) rather than run through Style Dictionary, since
+ * Text Styles aren't exposed via the DTCG JSON export pipeline.
  */
 
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { writeFile, mkdir } from 'fs/promises';
 import StyleDictionary from 'style-dictionary';
 import { fileHeader } from 'style-dictionary/utils';
+import { FONT_FAMILY, FONT_WEIGHT, TEXT_STYLES } from './typography-data.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, '../..');
@@ -26,6 +38,7 @@ const SRC = {
   colorDark:      path.join(EXTRACTED, 'Colors - Semantic', 'Dark.tokens.json'),
   spacingDesktop: path.join(EXTRACTED, 'Spacing- Semantic', 'Desktop.tokens.json'),
   spacingMobile:  path.join(EXTRACTED, 'Spacing- Semantic', 'Mobile.tokens.json'),
+  spacingKiosk:   path.join(EXTRACTED, 'Spacing- Semantic', 'Kiosk.tokens.json'),
 };
 
 // ─────────────────────────────────────────────
@@ -246,9 +259,11 @@ async function buildColors(sourcePath, outputFile, selector, label) {
   console.log(`  ✓ build/css/${outputFile}`);
 }
 
-async function buildSpacing(sourcePath, outputFile, isMediaQuery) {
-  const label = isMediaQuery ? 'mobile' : 'desktop';
-  console.log(`\n→ Building ${label} spacing…`);
+// mediaQuery: pass a string like '@media (max-width: 440px)' for responsive files,
+//             or null/undefined for the :root desktop default.
+async function buildSpacing(sourcePath, outputFile, mediaQuery) {
+  const label = mediaQuery ? mediaQuery : 'desktop';
+  console.log(`\n→ Building spacing [${label}]…`);
   const sd = new StyleDictionary({
     usesDtcg: true,
     log: { verbosity: 'silent' },
@@ -257,13 +272,13 @@ async function buildSpacing(sourcePath, outputFile, isMediaQuery) {
       css: {
         transforms: ['ps/size-px', 'name/puttshack'],
         buildPath: 'build/css/',
-        files: isMediaQuery
+        files: mediaQuery
           ? [
               {
                 destination: outputFile,
                 format: 'css/media-query',
                 filter: 'filter/figma-internal',
-                options: { mediaQuery: '@media (max-width: 440px)' },
+                options: { mediaQuery },
               },
             ]
           : [
@@ -279,6 +294,103 @@ async function buildSpacing(sourcePath, outputFile, isMediaQuery) {
   });
   await sd.buildAllPlatforms();
   console.log(`  ✓ build/css/${outputFile}`);
+}
+
+// ─────────────────────────────────────────────
+// Typography — hand-authored from Figma's 17 local Text Styles
+// (not sourced from a DTCG JSON export; see typography-data.js header)
+// ─────────────────────────────────────────────
+
+const AUTO_GENERATED_HEADER = '/**\n * Do not edit directly, this file was auto-generated.\n */\n\n';
+
+function textStyleRule(style, mode) {
+  const lh = style.lineHeight[mode];
+  const size = style.fontSize[mode];
+  const transform = style.textCase === 'uppercase' ? 'uppercase' : 'none';
+  return (
+    `.text-${style.key} {\n` +
+    `  font-family: var(--font-family-base);\n` +
+    `  font-weight: var(--font-weight-${style.weight});\n` +
+    `  font-size: ${size}px;\n` +
+    `  line-height: ${lh};\n` +
+    `  letter-spacing: ${style.letterSpacing};\n` +
+    `  text-transform: ${transform};\n` +
+    `}`
+  );
+}
+
+// Only emit a rule for `mode` when at least one property differs from the
+// `against` mode — keeps the kiosk/mobile override files minimal.
+function differsFromMode(style, mode, against) {
+  return (
+    style.fontSize[mode] !== style.fontSize[against] ||
+    style.lineHeight[mode] !== style.lineHeight[against]
+  );
+}
+
+async function buildTypographyCSS() {
+  console.log('\n→ Building typography [desktop]…');
+  await mkdir('build/css', { recursive: true });
+
+  const base =
+    AUTO_GENERATED_HEADER +
+    `:root {\n` +
+    `  --font-family-base: '${FONT_FAMILY}', system-ui, sans-serif;\n` +
+    `  --font-weight-regular: ${FONT_WEIGHT.regular};\n` +
+    `  --font-weight-bold: ${FONT_WEIGHT.bold};\n` +
+    `}\n\n` +
+    TEXT_STYLES.map((s) => textStyleRule(s, 'desktop')).join('\n\n') +
+    '\n';
+  await writeFile('build/css/tokens.typography.css', base);
+  console.log('  ✓ build/css/tokens.typography.css');
+
+  console.log('\n→ Building typography [kiosk]…');
+  const kioskStyles = TEXT_STYLES.filter((s) => differsFromMode(s, 'kiosk', 'desktop'));
+  const kiosk =
+    AUTO_GENERATED_HEADER +
+    `@media (min-width: 441px) and (max-width: 1024px) {\n` +
+    kioskStyles.map((s) => textStyleRule(s, 'kiosk').replace(/^/gm, '  ')).join('\n\n') +
+    '\n}\n';
+  await writeFile('build/css/tokens.typography.kiosk.css', kiosk);
+  console.log(`  ✓ build/css/tokens.typography.kiosk.css (${kioskStyles.length} overrides)`);
+
+  console.log('\n→ Building typography [mobile]…');
+  const mobileStyles = TEXT_STYLES.filter((s) => differsFromMode(s, 'mobile', 'desktop'));
+  const mobile =
+    AUTO_GENERATED_HEADER +
+    `@media (max-width: 440px) {\n` +
+    mobileStyles.map((s) => textStyleRule(s, 'mobile').replace(/^/gm, '  ')).join('\n\n') +
+    '\n}\n';
+  await writeFile('build/css/tokens.typography.mobile.css', mobile);
+  console.log(`  ✓ build/css/tokens.typography.mobile.css (${mobileStyles.length} overrides)`);
+}
+
+async function buildTypographyJS() {
+  console.log('\n→ Building typography JS/TS…');
+  await mkdir('build/js', { recursive: true });
+
+  const jsLines = [
+    AUTO_GENERATED_HEADER.trimEnd(),
+    '',
+    '// Maps each Figma text style to its CSS class name (see tokens.typography*.css)',
+    'export const textStyles = {',
+    ...TEXT_STYLES.map((s) => `  ${s.jsName}: 'text-${s.key}',`),
+    '};',
+    '',
+  ];
+  await writeFile('build/js/typography.js', jsLines.join('\n'));
+
+  const dtsLines = [
+    AUTO_GENERATED_HEADER.trimEnd(),
+    '',
+    'export declare const textStyles: {',
+    ...TEXT_STYLES.map((s) => `  readonly ${s.jsName}: string;`),
+    '};',
+    '',
+  ];
+  await writeFile('build/js/typography.d.ts', dtsLines.join('\n'));
+  console.log('  ✓ build/js/typography.js');
+  console.log('  ✓ build/js/typography.d.ts');
 }
 
 async function buildJS() {
@@ -346,8 +458,11 @@ async function run() {
   await Promise.all([
     buildColors(SRC.colorLight,  'tokens.css',      ':root',              'light'),
     buildColors(SRC.colorDark,   'tokens.dark.css', '[data-theme="dark"]','dark'),
-    buildSpacing(SRC.spacingDesktop, 'tokens.spacing.css',        false),
-    buildSpacing(SRC.spacingMobile,  'tokens.mobile.css',         true),
+    buildSpacing(SRC.spacingDesktop, 'tokens.spacing.css', null),
+    buildSpacing(SRC.spacingKiosk,   'tokens.kiosk.css',   '@media (min-width: 441px) and (max-width: 1024px)'),
+    buildSpacing(SRC.spacingMobile,  'tokens.mobile.css',  '@media (max-width: 440px)'),
+    buildTypographyCSS(),
+    buildTypographyJS(),
     buildJS(),
     buildTailwindPreset(),
   ]);

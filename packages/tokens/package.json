@@ -13,6 +13,15 @@
     "./css": "./build/css/tokens.css",
     "./css/dark": "./build/css/tokens.dark.css",
     "./css/mobile": "./build/css/tokens.mobile.css",
+    "./css/spacing": "./build/css/tokens.spacing.css",
+    "./css/kiosk": "./build/css/tokens.kiosk.css",
+    "./css/typography": "./build/css/tokens.typography.css",
+    "./css/typography/kiosk": "./build/css/tokens.typography.kiosk.css",
+    "./css/typography/mobile": "./build/css/tokens.typography.mobile.css",
+    "./typography": {
+      "import": "./build/js/typography.js",
+      "types": "./build/js/typography.d.ts"
+    },
     "./tailwind": "./build/tailwind/preset.js"
   },
   "files": [
