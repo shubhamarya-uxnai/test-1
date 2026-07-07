@@ -1,0 +1,43 @@
+/*
+ * PuttShack Design System — Global Styles
+ * Import this file once at the root of your application.
+ *
+ * Load order matters:
+ *   1. Token CSS variables (light mode default)
+ *   2. Dark mode overrides
+ *   3. Desktop spacing
+ *   4. Mobile spacing overrides
+ *   5. Tailwind utilities
+ */
+
+@import '@puttshack/tokens/css';
+@import '@puttshack/tokens/css/dark';
+@import '@puttshack/tokens/css/mobile';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: theme('fontFamily.sans');
+    color: var(--color-text-primary);
+    background-color: var(--color-background-default);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-border-focus);
+    outline-offset: 2px;
+  }
+}
