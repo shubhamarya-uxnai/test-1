@@ -1,0 +1,57 @@
+{
+  "border-width": {
+    "none": {
+      "$type": "number",
+      "$value": 0,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:10623:24",
+        "com.figma.scopes": [
+          "STROKE_FLOAT"
+        ]
+      }
+    },
+    "hairline": {
+      "$type": "number",
+      "$value": 0.5,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:10623:25",
+        "com.figma.scopes": [
+          "STROKE_FLOAT"
+        ]
+      }
+    },
+    "thin": {
+      "$type": "number",
+      "$value": 1,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:10623:26",
+        "com.figma.scopes": [
+          "STROKE_FLOAT"
+        ]
+      }
+    },
+    "medium": {
+      "$type": "number",
+      "$value": 2,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:10623:27",
+        "com.figma.scopes": [
+          "STROKE_FLOAT"
+        ]
+      }
+    },
+    "thick": {
+      "$type": "number",
+      "$value": 4,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:10623:28",
+        "com.figma.scopes": [
+          "STROKE_FLOAT"
+        ]
+      }
+    }
+  },
+  "$extensions": {
+    "com.figma.modeName": "Mode 1"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "name": "@puttshack/tokens",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "PuttShack Design System — design tokens",
+  "main": "./build/js/tokens.js",
+  "types": "./build/js/tokens.d.ts",
+  "exports": {
+    ".": {
+      "import": "./build/js/tokens.js",
+      "types": "./build/js/tokens.d.ts"
+    },
+    "./css": "./build/css/tokens.css",
+    "./css/dark": "./build/css/tokens.dark.css",
+    "./css/mobile": "./build/css/tokens.mobile.css",
+    "./css/spacing": "./build/css/tokens.spacing.css",
+    "./css/kiosk": "./build/css/tokens.kiosk.css",
+    "./css/typography": "./build/css/tokens.typography.css",
+    "./css/typography/kiosk": "./build/css/tokens.typography.kiosk.css",
+    "./css/typography/mobile": "./build/css/tokens.typography.mobile.css",
+    "./typography": {
+      "import": "./build/js/typography.js",
+      "types": "./build/js/typography.d.ts"
+    },
+    "./tailwind": "./build/tailwind/preset.js"
+  },
+  "files": [
+    "build/"
+  ],
+  "scripts": {
+    "build": "node build.js",
+    "watch": "node --watch build.js"
+  },
+  "devDependencies": {
+    "style-dictionary": "^4.3.0"
+  }
+}

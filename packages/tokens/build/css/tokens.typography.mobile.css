@@ -1,0 +1,158 @@
+/**
+ * Do not edit directly, this file was auto-generated.
+ */
+
+@media (max-width: 440px) {
+  .text-headline-xx-large {
+    font-family: var(--font-family-base);
+    font-weight: var(--font-weight-bold);
+    font-size: 64px;
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .text-headline-x-large {
+    font-family: var(--font-family-base);
+    font-weight: var(--font-weight-regular);
+    font-size: 48px;
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .text-headline-large {
+    font-family: var(--font-family-base);
+    font-weight: var(--font-weight-bold);
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: 0px;
+    text-transform: uppercase;
+  }
+
+  .text-headline-medium {
+    font-family: var(--font-family-base);
+    font-weight: var(--font-weight-bold);
+    font-size: 28px;
+    line-height: 32px;
+    letter-spacing: 0px;
+    text-transform: uppercase;
+  }
+
+  .text-headline-small {
+    font-family: var(--font-family-base);
+    font-weight: var(--font-weight-bold);
+    font-size: 24px;
+    line-height: normal;
+    letter-spacing: 0px;
+    text-transform: uppercase;
+  }
+
+  .text-title-large {
+    font-family: var(--font-family-base);
+    font-weight: var(--font-weight-bold);
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: 0px;
+    text-transform: none;
+  }
+
+  .text-title-large-capital {
+    font-family: var(--font-family-base);
+    font-weight: var(--font-weight-bold);
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: 0px;
+    text-transform: uppercase;
+  }
+
+  .text-title-medium {
+    font-family: var(--font-family-base);
+    font-weight: var(--font-weight-bold);
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: 0px;
+    text-transform: uppercase;
+  }
+
+  .text-title-small {
+    font-family: var(--font-family-base);
+    font-weight: var(--font-weight-bold);
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0px;
+    text-transform: none;
+  }
+
+  .text-title-small-capital {
+    font-family: var(--font-family-base);
+    font-weight: var(--font-weight-bold);
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 0px;
+    text-transform: uppercase;
+  }
+
+  .text-body-large {
+    font-family: var(--font-family-base);
+    font-weight: var(--font-weight-regular);
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: 0px;
+    text-transform: none;
+  }
+
+  .text-body-medium {
+    font-family: var(--font-family-base);
+    font-weight: var(--font-weight-regular);
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: 0px;
+    text-transform: none;
+  }
+
+  .text-body-small {
+    font-family: var(--font-family-base);
+    font-weight: var(--font-weight-regular);
+    font-size: 14px;
+    line-height: 1.2;
+    letter-spacing: 0px;
+    text-transform: none;
+  }
+
+  .text-label-large {
+    font-family: var(--font-family-base);
+    font-weight: var(--font-weight-regular);
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .text-label-medium {
+    font-family: var(--font-family-base);
+    font-weight: var(--font-weight-bold);
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0px;
+    text-transform: uppercase;
+  }
+
+  .text-label-small {
+    font-family: var(--font-family-base);
+    font-weight: var(--font-weight-regular);
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0px;
+    text-transform: none;
+  }
+
+  .text-label-x-small {
+    font-family: var(--font-family-base);
+    font-weight: var(--font-weight-bold);
+    font-size: 11px;
+    line-height: 14px;
+    letter-spacing: 0px;
+    text-transform: uppercase;
+  }
+}

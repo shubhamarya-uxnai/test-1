@@ -1,0 +1,137 @@
+{
+  "opacity": {
+    "0": {
+      "$type": "number",
+      "$value": 0,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:10623:29",
+        "com.figma.scopes": [
+          "OPACITY"
+        ]
+      }
+    },
+    "12": {
+      "$type": "number",
+      "$value": 0.11999999731779099,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:10623:34",
+        "com.figma.scopes": [
+          "OPACITY"
+        ]
+      }
+    },
+    "16": {
+      "$type": "number",
+      "$value": 0.1599999964237213,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:10623:35",
+        "com.figma.scopes": [
+          "OPACITY"
+        ]
+      }
+    },
+    "24": {
+      "$type": "number",
+      "$value": 0.23999999463558197,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:10623:36",
+        "com.figma.scopes": [
+          "OPACITY"
+        ]
+      }
+    },
+    "32": {
+      "$type": "number",
+      "$value": 0.3199999928474426,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:10623:37",
+        "com.figma.scopes": [
+          "OPACITY"
+        ]
+      }
+    },
+    "48": {
+      "$type": "number",
+      "$value": 0.47999998927116394,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:10623:38",
+        "com.figma.scopes": [
+          "OPACITY"
+        ]
+      }
+    },
+    "64": {
+      "$type": "number",
+      "$value": 0.6399999856948853,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:10623:39",
+        "com.figma.scopes": [
+          "OPACITY"
+        ]
+      }
+    },
+    "80": {
+      "$type": "number",
+      "$value": 0.800000011920929,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:10623:40",
+        "com.figma.scopes": [
+          "OPACITY"
+        ]
+      }
+    },
+    "100": {
+      "$type": "number",
+      "$value": 1,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:10623:41",
+        "com.figma.scopes": [
+          "OPACITY"
+        ]
+      }
+    },
+    "02": {
+      "$type": "number",
+      "$value": 0.019999999552965164,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:10623:30",
+        "com.figma.scopes": [
+          "OPACITY"
+        ]
+      }
+    },
+    "04": {
+      "$type": "number",
+      "$value": 0.03999999910593033,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:10623:31",
+        "com.figma.scopes": [
+          "OPACITY"
+        ]
+      }
+    },
+    "06": {
+      "$type": "number",
+      "$value": 0.05999999865889549,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:10623:32",
+        "com.figma.scopes": [
+          "OPACITY"
+        ]
+      }
+    },
+    "08": {
+      "$type": "number",
+      "$value": 0.07999999821186066,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:10623:33",
+        "com.figma.scopes": [
+          "OPACITY"
+        ]
+      }
+    }
+  },
+  "$extensions": {
+    "com.figma.modeName": "Mode 1"
+  }
+}

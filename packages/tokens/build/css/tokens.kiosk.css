@@ -1,0 +1,33 @@
+/**
+ * Do not edit directly, this file was auto-generated.
+ */
+
+@media (min-width: 441px) and (max-width: 1024px) {
+  :root {
+    --spacing-container-top-vertical: 64px;
+    --spacing-container-bottom-vertical: 64px;
+    --spacing-container-horizontal: 64px;
+    --spacing-container-gap: 32px;
+    --spacing-level-2-vertical: 32px;
+    --spacing-level-2-horizontal: 32px;
+    --spacing-level-2-gap: 32px;
+    --spacing-level-3-vertical: 24px;
+    --spacing-level-3-horizontal: 24px;
+    --spacing-level-3-gap: 24px;
+    --spacing-button-default-vertical: 14px;
+    --spacing-button-default-horizontal: 40px;
+    --spacing-button-default-gap: 8px;
+    --spacing-button-large-vertical: 40px;
+    --spacing-button-large-horizontal: 64px;
+    --spacing-button-large-gap: 16px;
+    --spacing-gap-x-small: 4px;
+    --spacing-gap-small: 8px;
+    --spacing-gap-medium: 12px;
+    --spacing-gap-large: 16px;
+    --spacing-gap-x-large: 24px;
+    --spacing-icon-size-s: 16px;
+    --spacing-icon-size-m: 20px;
+    --spacing-icon-size-l: 24px;
+    --spacing-icon-size-xl: 32px;
+  }
+}

@@ -1,0 +1,381 @@
+/* ─── PuttShack Input Field ─────────────────────────────────────────────────
+   Two presentations, mirroring the Figma "Kiosk / Not Kiosk" toggles:
+
+   • Boxed   (Desktop >1024px and Mobile ≤440px): filled rounded box
+   • Kiosk   (441–1024px, or forced via mode="kiosk"): fieldset-style
+             outline — label breaks the top line, side rails + underline
+
+   The .field-kiosk class is applied by the component (auto via matchMedia,
+   or forced by the `mode` prop), so all kiosk styles live in one place.
+
+   States map to Figma variants:
+     Default → empty input          Typing → :focus-within
+     Typed   → filled input         Error / Disabled / Inverse → props
+   ─────────────────────────────────────────────────────────────────────────── */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-gap-x-small);
+  width: 100%;
+  font-family: 'Ringside Regular', system-ui, sans-serif;
+
+  /* State-driven palette (Default) */
+  --field-label-color:  var(--color-text-icon-primary);
+  --field-helper-color: var(--color-text-icon-primary);
+  --field-box-bg:       var(--color-surface-subtle);
+  --field-box-border:   var(--color-border-subtle);
+  --field-text:         var(--color-text-icon-primary);
+  --field-placeholder:  var(--color-text-icon-tertiary);
+  --field-outline:      var(--color-text-icon-inverse);
+}
+
+/* ─── Label row ─────────────────────────────────────────────────────────── */
+
+.field-label-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.field-label {
+  font-size: 12px;            /* Label/Medium text style */
+  line-height: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--field-label-color);
+}
+
+.field-label-icon {
+  display: flex;
+  width: var(--spacing-icon-size-s);   /* token-bound in Figma (Icon size/S) */
+  height: var(--spacing-icon-size-s);
+  color: var(--field-label-color);
+}
+
+.field-required {
+  font-size: 11px;            /* Label/x-Small text style */
+  line-height: 14px;
+  font-weight: 700;
+  color: var(--color-text-icon-magenta);   /* magenta in every state */
+}
+
+/* ─── Outline wrapper (only draws in kiosk mode) ────────────────────────── */
+
+.field-outline {
+  display: contents;          /* boxed mode: children join the root stack */
+}
+
+/* ─── Input box ─────────────────────────────────────────────────────────── */
+
+.field-box {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-gap-small);
+  width: 100%;
+  padding: var(--spacing-gap-large);
+  border-radius: 8px;
+  background-color: var(--field-box-bg);
+  border: 1px solid var(--field-box-border);
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+
+/* Typing state — Figma: transparent box, magenta border */
+.field-box:focus-within {
+  background-color: transparent;
+  border-color: var(--color-text-icon-magenta);
+}
+
+.field-control {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  padding: 0;
+  font-family: inherit;
+  font-size: 16px;            /* Body/Medium text style */
+  line-height: 22px;
+  font-weight: 400;
+  color: var(--field-text);
+  caret-color: var(--color-text-icon-magenta);
+}
+
+.field-control:focus {
+  outline: none;              /* focus shown on the box border instead */
+}
+
+.field-control::placeholder {
+  color: var(--field-placeholder);
+  opacity: 1;
+}
+
+/* ─── Icons ─────────────────────────────────────────────────────────────── */
+
+.field-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.field-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.field-leading {
+  width: 16px;
+  height: 16px;
+  color: var(--field-text);
+}
+
+/* Empty input (placeholder showing) dims the leading icon + clear button */
+.field-box:has(.field-control:placeholder-shown) .field-leading,
+.field-box:has(.field-control:placeholder-shown) .field-clear {
+  color: var(--field-placeholder);
+}
+
+.field-clear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--field-text);
+}
+
+.field-clear svg {
+  width: 100%;
+  height: 100%;
+}
+
+.field-clear:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.field-clear:disabled {
+  cursor: not-allowed;
+}
+
+/* ─── Helper row ────────────────────────────────────────────────────────── */
+
+.field-helper {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 12px;            /* Label/Small text style */
+  line-height: 16px;
+  font-weight: 400;
+  color: var(--field-helper-color);
+}
+
+.field-helper-icon {
+  width: 12px;
+  height: 12px;
+}
+
+/* ─── State: Inverse (boxed, for dark surfaces) ─────────────────────────── */
+
+.field-inverse {
+  --field-label-color:  var(--color-text-icon-inverse);
+  --field-helper-color: var(--color-text-icon-inverse);
+  --field-box-bg:       var(--color-surface-inverse);
+  --field-box-border:   var(--color-border-inverse);
+  --field-text:         var(--color-text-icon-inverse);
+  --field-placeholder:  var(--color-text-icon-inverse-subtle);
+}
+
+/* Figma: inverse box is slightly shorter (py = gap/medium) */
+.field-inverse .field-box {
+  padding-top: var(--spacing-gap-medium);
+  padding-bottom: var(--spacing-gap-medium);
+}
+
+/* ─── State: Error ──────────────────────────────────────────────────────── */
+
+.field-error {
+  --field-box-bg:       var(--color-surface-inverse);
+  --field-box-border:   var(--color-feedback-error-border);
+  --field-helper-color: var(--color-feedback-error-pressed);
+}
+
+/* Error border wins over the magenta focus border; thicken it so keyboard
+   focus stays visible (WCAG 2.4.7), and keep the error background */
+.field-error .field-box:focus-within {
+  border-color: var(--color-feedback-error-border);
+  background-color: var(--field-box-bg);
+  box-shadow: 0 0 0 1px var(--color-feedback-error-border);
+}
+
+/* ─── State: Disabled ───────────────────────────────────────────────────── */
+
+.field-disabled {
+  --field-label-color:  var(--color-text-icon-disabled);
+  --field-helper-color: var(--color-text-icon-disabled);
+  --field-box-bg:       var(--color-surface-disabled);
+  --field-box-border:   var(--color-border-default);
+  --field-text:         var(--color-text-icon-disabled);
+  --field-placeholder:  var(--color-text-icon-disabled);
+}
+
+.field-disabled .field-control {
+  cursor: not-allowed;
+}
+
+/* Inverse × Disabled (boxed) — Figma treats these states as mutually
+   exclusive, so define a legible dark-surface disabled treatment */
+.field-inverse.field-disabled {
+  --field-label-color:  var(--color-text-icon-inverse-subtle);
+  --field-helper-color: var(--color-text-icon-inverse-subtle);
+  --field-box-bg:       var(--color-surface-inverse);
+  --field-box-border:   var(--color-border-inverse);
+  --field-text:         var(--color-text-icon-inverse-subtle);
+  --field-placeholder:  var(--color-text-icon-inverse-subtle);
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   KIOSK PRESENTATION — fieldset-style outline
+   Label breaks the top line; side rails + underline complete the frame.
+   ════════════════════════════════════════════════════════════════════════ */
+
+.field-kiosk {
+  --field-label-color:  var(--color-text-icon-inverse);
+  --field-helper-color: var(--color-text-icon-inverse);
+  --field-text:         var(--color-text-icon-inverse);
+  --field-placeholder:  var(--color-text-icon-inverse-subtle);
+  --field-outline:      var(--color-text-icon-inverse);
+}
+
+/* Outline wrapper becomes a real box: rails + underline */
+.field-kiosk .field-outline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-gap-x-small);
+  position: relative;
+  padding-bottom: var(--spacing-gap-x-small);
+  border-bottom: 2px solid var(--field-outline);
+}
+
+/* Side rails: from the label's vertical center down to the underline */
+.field-kiosk .field-outline::before,
+.field-kiosk .field-outline::after {
+  content: '';
+  position: absolute;
+  top: 8px;                   /* label row is 16px tall → line center */
+  bottom: 0;
+  width: 2px;
+  background-color: var(--field-outline);
+}
+
+.field-kiosk .field-outline::before { left: 0; }
+.field-kiosk .field-outline::after  { right: 0; }
+
+/* Keep the rails' 8px anchor valid even when the row has no text,
+   and keep the label on one line so the rails stay aligned */
+.field-kiosk .field-label-row {
+  min-height: 16px;
+}
+
+.field-kiosk .field-label {
+  white-space: nowrap;
+}
+
+/* Empty label row (kiosk still draws the frame): merge the two
+   top-line segments into one continuous line */
+.field-kiosk .field-label-row-empty {
+  gap: 0;
+}
+
+/* Top line: short segment before the label, long segment after */
+.field-kiosk .field-label-row::before {
+  content: '';
+  width: 16px;
+  height: 2px;
+  flex-shrink: 0;
+  background-color: var(--field-outline);
+}
+
+.field-kiosk .field-label-row::after {
+  content: '';
+  flex: 1;
+  height: 2px;
+  background-color: var(--field-outline);
+}
+
+/* Focus (Typing): the whole outline turns magenta */
+.field-kiosk .field-outline:focus-within {
+  --field-outline: var(--color-text-icon-magenta);
+}
+
+/* Input row: no box — big bold type on the open frame */
+.field-kiosk .field-box {
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  padding: var(--spacing-gap-x-small) var(--spacing-gap-large);
+}
+
+.field-kiosk .field-box:focus-within {
+  background-color: transparent;
+}
+
+.field-kiosk .field-control {
+  font-size: 24px;            /* Headline/Small text style */
+  line-height: normal;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.field-kiosk .field-leading {
+  width: 24px;
+  height: 24px;
+}
+
+/* Kiosk × Inverse — flips to dark-on-light */
+.field-kiosk.field-inverse {
+  --field-label-color:  var(--color-text-icon-primary);
+  --field-helper-color: var(--color-text-icon-primary);
+  --field-text:         var(--color-text-icon-primary);
+  --field-placeholder:  var(--color-text-icon-tertiary);
+  --field-outline:      var(--color-text-icon-primary);
+}
+
+.field-kiosk.field-inverse .field-box {
+  padding: var(--spacing-gap-x-small) var(--spacing-gap-large);
+}
+
+/* Kiosk × Error — red outline, red helper, text stays inverse */
+.field-kiosk.field-error {
+  --field-outline:      var(--color-feedback-error-border);
+  --field-helper-color: var(--color-feedback-error-pressed);
+}
+
+.field-kiosk.field-error .field-outline:focus-within {
+  --field-outline: var(--color-feedback-error-border);
+}
+
+/* Kiosk × Disabled — everything drops to inverse-subtle */
+.field-kiosk.field-disabled {
+  --field-label-color:  var(--color-text-icon-inverse-subtle);
+  --field-helper-color: var(--color-text-icon-inverse);
+  --field-text:         var(--color-text-icon-inverse-subtle);
+  --field-placeholder:  var(--color-text-icon-inverse-subtle);
+  --field-outline:      var(--color-text-icon-inverse-subtle);
+}
+
+/* Kiosk × Inverse × Disabled — dark-on-light kiosk surfaces need a
+   light-surface disabled palette (states are exclusive in Figma) */
+.field-kiosk.field-inverse.field-disabled {
+  --field-label-color:  var(--color-text-icon-disabled);
+  --field-helper-color: var(--color-text-icon-disabled);
+  --field-text:         var(--color-text-icon-disabled);
+  --field-placeholder:  var(--color-text-icon-disabled);
+  --field-outline:      var(--color-text-icon-disabled);
+}

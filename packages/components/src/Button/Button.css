@@ -1,0 +1,192 @@
+/* ─── PuttShack Button ──────────────────────────────────────────────────────
+   Color tokens: imported via globals.css → @puttshack/tokens/css
+   Spacing tokens: --spacing-button-* and --spacing-icon-size-*
+   ─────────────────────────────────────────────────────────────────────────── */
+
+/* Base */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-family: 'Ringside Regular', system-ui, sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+  user-select: none;
+  text-decoration: none;
+  transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+
+  background-color: var(--btn-bg, transparent);
+  color: var(--btn-text, inherit);
+  border-color: var(--btn-border, transparent);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 3px;
+}
+
+.btn:not(:disabled):hover {
+  background-color: var(--btn-hover-bg, var(--btn-bg, transparent));
+  color: var(--btn-hover-text, var(--btn-text, inherit));
+  border-color: transparent;
+}
+
+.btn:not(:disabled):active {
+  background-color: var(--btn-active-bg, var(--btn-hover-bg, var(--btn-bg, transparent)));
+  color: var(--btn-active-text, var(--btn-hover-text, var(--btn-text, inherit)));
+  border-color: transparent;
+}
+
+/* All non-ghost variants share the same disabled look */
+.btn:not(.btn-ghost):disabled {
+  background-color: var(--color-interactive-disabled-cta-background);
+  color: var(--color-interactive-disabled-text);
+  border-color: transparent;
+  cursor: not-allowed;
+}
+
+/* Ghost disabled: transparent bg, only text dims */
+.btn-ghost:disabled {
+  background-color: transparent;
+  color: var(--color-interactive-disabled-text);
+  cursor: not-allowed;
+}
+
+/* ─── Icon slot ─────────────────────────────────────────────────────────── */
+
+.btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Any SVG icon (e.g. Lucide) fills the token-sized slot, so icons scale
+   with --spacing-icon-size-* across Desktop / Kiosk / Mobile automatically. */
+.btn-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ─── Size: Default ─────────────────────────────────────────────────────── */
+
+.btn-default {
+  padding: var(--spacing-button-default-vertical) var(--spacing-button-default-horizontal);
+  gap: var(--spacing-button-default-gap);
+  font-size: 16px;
+}
+
+.btn-default .btn-icon {
+  width: var(--spacing-icon-size-l);
+  height: var(--spacing-icon-size-l);
+}
+
+/* ─── Size: Large ───────────────────────────────────────────────────────── */
+
+.btn-large {
+  padding: var(--spacing-button-large-vertical) var(--spacing-button-large-horizontal);
+  gap: var(--spacing-button-large-gap);
+  font-size: 28px;
+}
+
+.btn-large .btn-icon {
+  width: var(--spacing-icon-size-xl);
+  height: var(--spacing-icon-size-xl);
+}
+
+/* ─── Variant: Primary ──────────────────────────────────────────────────── */
+
+.btn-primary {
+  --btn-bg:          var(--color-interactive-primary-enabled);
+  --btn-text:        var(--color-interactive-primary-text);
+  --btn-hover-bg:    var(--color-interactive-primary-hover);
+  --btn-hover-text:  var(--color-interactive-primary-hover-text);
+  --btn-active-bg:   var(--color-interactive-primary-pressed);
+  --btn-active-text: var(--color-interactive-primary-hover-text);
+}
+
+/* ─── Variant: Secondary ────────────────────────────────────────────────── */
+
+.btn-secondary {
+  --btn-bg:          var(--color-interactive-secondary-enabled);
+  --btn-text:        var(--color-interactive-secondary-text);
+  --btn-hover-bg:    var(--color-interactive-secondary-hover);
+  --btn-hover-text:  var(--color-interactive-primary-hover-text);
+  --btn-active-bg:   var(--color-interactive-secondary-pressed);
+  --btn-active-text: var(--color-interactive-primary-hover-text);
+}
+
+/* ─── Variant: Tertiary ─────────────────────────────────────────────────── */
+
+.btn-tertiary {
+  --btn-bg:          transparent;
+  --btn-text:        var(--color-interactive-tertiary-text);
+  --btn-border:      var(--color-interactive-tertiary-border);
+  --btn-hover-bg:    var(--color-interactive-tertiary-hover);
+  --btn-hover-text:  var(--color-interactive-primary-hover-text);
+  --btn-active-bg:   var(--color-interactive-tertiary-pressed);
+  --btn-active-text: var(--color-interactive-primary-hover-text);
+
+  border-color: var(--btn-border);
+}
+
+/* ─── Variant: Ghost / Link ─────────────────────────────────────────────── */
+
+.btn-ghost {
+  --btn-bg:          transparent;
+  --btn-text:        var(--color-interactive-link-text);
+  --btn-hover-bg:    var(--color-interactive-link-text-hover);
+  --btn-hover-text:  var(--color-interactive-link-text);
+  --btn-active-bg:   var(--color-interactive-link-pressed);
+  --btn-active-text: var(--color-interactive-link-text);
+}
+
+/* ─── Variant: Success ──────────────────────────────────────────────────── */
+
+.btn-success {
+  --btn-bg:          var(--color-feedback-success-background);
+  --btn-text:        var(--color-feedback-success-text);
+  --btn-hover-bg:    var(--color-feedback-success-hover);
+  --btn-hover-text:  var(--color-feedback-success-text);
+  --btn-active-bg:   var(--color-feedback-success-pressed);
+  --btn-active-text: var(--color-feedback-success-text);
+}
+
+/* ─── Variant: Error ────────────────────────────────────────────────────── */
+
+.btn-error {
+  --btn-bg:          var(--color-feedback-error-background);
+  --btn-text:        var(--color-feedback-error-text);
+  --btn-hover-bg:    var(--color-feedback-error-hover);
+  --btn-hover-text:  var(--color-feedback-error-text);
+  --btn-active-bg:   var(--color-feedback-error-pressed);
+  --btn-active-text: var(--color-feedback-error-text);
+}
+
+/* ─── Variant: Warning ──────────────────────────────────────────────────── */
+
+.btn-warning {
+  --btn-bg:          var(--color-feedback-warning-background);
+  --btn-text:        var(--color-feedback-warning-text);
+  --btn-hover-bg:    var(--color-feedback-warning-hover);
+  --btn-hover-text:  var(--color-feedback-warning-text);
+  --btn-active-bg:   var(--color-feedback-warning-pressed);
+  --btn-active-text: var(--color-feedback-warning-text);
+}
+
+/* ─── Variant: Info ─────────────────────────────────────────────────────── */
+
+.btn-info {
+  --btn-bg:          var(--color-feedback-info-background);
+  --btn-text:        var(--color-feedback-info-text);
+  --btn-hover-bg:    var(--color-feedback-info-hover);
+  --btn-hover-text:  var(--color-feedback-info-text);
+  --btn-active-bg:   var(--color-feedback-info-pressed);
+  --btn-active-text: var(--color-feedback-info-text);
+}
