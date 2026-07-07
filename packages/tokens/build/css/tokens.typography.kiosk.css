@@ -11,4 +11,31 @@
     letter-spacing: 0.02em;
     text-transform: uppercase;
   }
+
+  .text-title-small {
+    font-family: var(--font-family-base);
+    font-weight: var(--font-weight-bold);
+    font-size: 18px;
+    line-height: 20px;
+    letter-spacing: 0px;
+    text-transform: none;
+  }
+
+  .text-title-small-capital {
+    font-family: var(--font-family-base);
+    font-weight: var(--font-weight-bold);
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: 0px;
+    text-transform: uppercase;
+  }
+
+  .text-body-small {
+    font-family: var(--font-family-base);
+    font-weight: var(--font-weight-regular);
+    font-size: 18px;
+    line-height: 1.2;
+    letter-spacing: 0px;
+    text-transform: none;
+  }
 }

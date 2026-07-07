@@ -107,7 +107,7 @@ export const TEXT_STYLES = [
     textCase: 'none',
     letterSpacing: '0px',
     lineHeight: { mobile: '20px', desktop: '20px', kiosk: '20px' },
-    fontSize: { mobile: 14, desktop: 16, kiosk: 16 },
+    fontSize: { mobile: 14, desktop: 16, kiosk: 18 },
   },
   {
     key: 'title-small-capital',
@@ -117,7 +117,7 @@ export const TEXT_STYLES = [
     letterSpacing: '0px',
     // Bound to line-height/large in Figma — see file header note.
     lineHeight: { mobile: '24px', desktop: '28px', kiosk: '28px' },
-    fontSize: { mobile: 14, desktop: 16, kiosk: 16 },
+    fontSize: { mobile: 14, desktop: 16, kiosk: 18 },
   },
   {
     key: 'body-large',
@@ -144,7 +144,7 @@ export const TEXT_STYLES = [
     textCase: 'none',
     letterSpacing: '0px',
     lineHeight: { mobile: '1.2', desktop: '1.2', kiosk: '1.2' },
-    fontSize: { mobile: 14, desktop: 16, kiosk: 16 },
+    fontSize: { mobile: 14, desktop: 16, kiosk: 18 },
   },
   {
     key: 'label-large',
